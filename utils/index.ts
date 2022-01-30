@@ -1,5 +1,4 @@
-import { GridBox, BoxState } from './../types.d';
-
+import { GridBox, BoxState, SearchWord, GameRef } from './../types.d';
 // @ts-ignore
 import spelling from 'spelling';
 // @ts-ignore
@@ -10,20 +9,48 @@ export const isCorrectWordPredicted = (grid: GridBox[][]) =>
 
 export const isGameFinished = (grid: GridBox[][]) => grid.every((row) => row.every((box) => box.letter.length > 0));
 
-export const detectBoxState = (box: GridBox, word: string, columnIndex: number) => {
-  if (box.letter === '') {
-    return BoxState.default;
+export const updateBoxStates = (grid: GridBox[][], rowIndex: number, hurdle: GameRef<SearchWord>) => {
+  const _grid = [...grid];
+  const _row = [..._grid[rowIndex]];
+  const _attributes = { ...hurdle.current.attributes };
+  const letters = hurdle.current.word;
+
+  _row.forEach((box, index) => {
+    if (!!_attributes[box.letter]) {
+      if (letters.charAt(index) === box.letter) {
+        _attributes[box.letter] = Math.max(0, _attributes[box.letter] - 1);
+        box.status = BoxState.correctPosition;
+      }
+    }
+  });
+
+  _row.forEach((box) => {
+    if (!!_attributes[box.letter] && box.status !== BoxState.correctPosition) {
+      _attributes[box.letter] = Math.max(0, _attributes[box.letter] - 1);
+      box.status = BoxState.wrongPosition;
+    }
+  });
+
+  _row.forEach((box) => {
+    if (box.status === BoxState.default) {
+      box.status = BoxState.absent;
+    }
+  });
+
+  _grid[rowIndex] = _row;
+
+  return _grid;
+};
+
+export const detectBoxState = (box: GridBox, columnIndex: number, hurdle: GameRef<SearchWord>) => {
+  const { word: letters } = hurdle.current;
+
+  if (hurdle.current.attributes[box.letter] > 0) {
+    hurdle.current.attributes[box.letter]--;
+    return letters.charAt(columnIndex) === box.letter ? BoxState.correctPosition : BoxState.wrongPosition;
   }
 
-  if (!word.includes(box.letter)) {
-    return BoxState.absent;
-  }
-
-  if (word.charAt(columnIndex) === box.letter) {
-    return BoxState.correctPosition;
-  }
-
-  return BoxState.wrongPosition;
+  return BoxState.absent;
 };
 
 export const numberOfRows = 6;
@@ -62,7 +89,7 @@ export const generateShareMessage = (grid: GridBox[][]) => {
   }
 
   let message = 'HURDLE\n';
-  message += `Solved in steps ${steps} of ${numberOfRows}\n\n\n`;
+  message += `Solved in ${steps} of ${numberOfRows} steps.\n\n\n`;
   message += grid
     .map((row) =>
       row

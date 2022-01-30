@@ -38,3 +38,8 @@ export interface ButtonStyleType {
   backgroundColor: string;
   color: string;
 }
+
+export interface SearchWord {
+  word: Readonly<string>;
+  attributes: Record<string, number>;
+}

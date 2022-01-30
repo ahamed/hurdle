@@ -91,54 +91,54 @@ const Keyboard = () => {
         <Key
           value="q"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('Q') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('Q') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="w"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('W') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('W') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="e"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('E') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('E') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="r"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('R') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('R') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="t"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('T') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('T') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="y"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('Y') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('Y') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="u"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('U') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('U') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="i"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('I') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('I') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="o"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('O') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('O') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="p"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('P') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('P') ? ButtonTypes.dark : ButtonTypes.light}
         />
-        <Key value="backspace" onClick={handleKeyClick}>
+        <Key value="backspace" onClick={handleKeyClick} type={ButtonTypes.light}>
           &#9003;
         </Key>
       </div>
@@ -146,47 +146,47 @@ const Keyboard = () => {
         <Key
           value="a"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('A') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('A') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="s"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('S') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('S') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="d"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('D') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('D') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="f"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('F') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('F') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="g"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('G') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('G') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="h"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('H') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('H') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="j"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('J') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('J') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="k"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('K') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('K') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="l"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('L') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('L') ? ButtonTypes.dark : ButtonTypes.light}
         />
       </div>
       <div css={styles.row}>
@@ -201,37 +201,37 @@ const Keyboard = () => {
         <Key
           value="z"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('Z') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('Z') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="x"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('X') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('X') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="c"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('C') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('C') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="v"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('V') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('V') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="b"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('B') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('B') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="n"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('N') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('N') ? ButtonTypes.dark : ButtonTypes.light}
         />
         <Key
           value="m"
           onClick={handleKeyClick}
-          type={absentCharacters.includes('M') ? ButtonTypes.dark : ButtonTypes.secondary}
+          type={absentCharacters.includes('M') ? ButtonTypes.dark : ButtonTypes.light}
         />
 
         <Button onClick={onHitEnter} type={ButtonTypes.dark} ref={enterBtnRef} size={ButtonSize.large}>

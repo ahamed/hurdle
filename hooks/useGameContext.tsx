@@ -2,8 +2,8 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState } from 
 import update from 'react-addons-update';
 import swal from 'sweetalert';
 
-import { getRandomWord } from '../data/words';
-import { BoxState, GameRef, GridBox } from '../types.d';
+import { getRandomWord, getSearchingWord } from '../data/words';
+import { BoxState, GameRef, GridBox, SearchWord } from '../types.d';
 import {
   detectBoxState,
   generateDefaultGrid,
@@ -12,6 +12,7 @@ import {
   isValidEnglishWord,
   numberOfColumns,
   numberOfRows,
+  updateBoxStates,
 } from '../utils';
 import { useGameWord } from './useGameWord';
 
@@ -23,7 +24,7 @@ interface ContextProps {
   currentRow: GameRef<number>;
   currentColumn: GameRef<number>;
   gameLock: GameRef<boolean>;
-  word: string;
+  hurdle: GameRef<SearchWord>;
   onHitEnter: () => void;
   onResetGame: () => void;
   absentCharacters: string[];
@@ -38,7 +39,7 @@ const GameContext = createContext<ContextProps>({
   currentRow: { current: 0 },
   currentColumn: { current: 0 },
   gameLock: { current: false },
-  word: '',
+  hurdle: { current: { word: '', attributes: {} } },
   onHitEnter: () => {},
   onResetGame: () => {},
   absentCharacters: [],
@@ -51,16 +52,19 @@ interface GameContextProvideProps {
   children: React.ReactNode;
 }
 
-export const GameContextProvider = ({ children }: GameContextProvideProps) => {
-  const word = useGameWord();
+export const word = getSearchingWord();
 
+export const GameContextProvider = ({ children }: GameContextProvideProps) => {
   const [grid, setGrid] = useState<GridBox[][]>(gridDefault);
   const [absentCharacters, setAbsentCharacters] = useState<string[]>([]);
   const [showKeyboard, setShowKeyboard] = useState<boolean>(true);
 
+  const hurdle = useRef<SearchWord>(word);
   const gameLock = useRef(false);
   const currentRow = useRef(0);
   const currentColumn = useRef(0);
+
+  console.log(hurdle.current);
 
   useEffect(() => {
     if (currentRow.current > 0 && currentColumn.current === 0) {
@@ -88,7 +92,7 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
       if (isCorrectWordPredicted(grid)) {
         swal({
           title: 'Congratulations!',
-          text: `You have found the word ${word}`,
+          text: `You have found the word "${hurdle.current.word}"`,
           icon: 'success',
         });
       } else {
@@ -100,7 +104,7 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grid]);
+  }, [JSON.stringify(grid)]);
 
   const handleHitEnter = async () => {
     let isValid = true;
@@ -114,14 +118,7 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
           return prev;
         }
 
-        return update(prev, {
-          [currentRow.current]: {
-            $set: prev[currentRow.current].map((box, index) => ({
-              ...box,
-              status: detectBoxState(box, word, index),
-            })),
-          },
-        });
+        return update(prev, { $set: updateBoxStates(prev, currentRow.current, hurdle) });
       });
 
       currentRow.current = Math.min(currentRow.current + 1, numberOfRows - 1);
@@ -141,6 +138,7 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
   };
 
   const handleResetGame = () => {
+    hurdle.current = getSearchingWord();
     setGrid(generateDefaultGrid());
     currentRow.current = 0;
     currentColumn.current = 0;
@@ -151,7 +149,7 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
     () => ({
       grid,
       setGrid,
-      word: getRandomWord(),
+      hurdle,
       currentRow: currentRow,
       currentColumn: currentColumn,
       onHitEnter: handleHitEnter,
@@ -163,7 +161,7 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
       setShowKeyboard,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(grid), currentRow, currentColumn, absentCharacters, showKeyboard],
+    [JSON.stringify(grid), currentRow, currentColumn, absentCharacters, showKeyboard, hurdle],
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

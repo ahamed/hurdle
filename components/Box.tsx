@@ -43,13 +43,9 @@ const styles = {
 
 interface BoxProps {
   content: GridBox;
-  rowIndex: number;
-  columnIndex: number;
 }
 
-const Box = ({ content, rowIndex, columnIndex }: BoxProps) => {
-  const { grid, word } = useGameContext();
-
+const Box = ({ content }: BoxProps) => {
   return <div css={styles.wrapper(content.status)}>{content.letter}</div>;
 };
 

@@ -43,10 +43,8 @@ const Board = () => {
 
     if (event.metaKey) {
       if (letter === 'R') {
-        onResetGame();
+        window.location.href = '/';
       }
-
-      event.preventDefault();
       return;
     }
 
@@ -98,11 +96,7 @@ const Board = () => {
   return (
     <div>
       <div css={styles.wrapper}>
-        {grid.map((row, rowIndex) =>
-          row.map((letter, letterIndex) => (
-            <Box key={letterIndex} content={letter} rowIndex={rowIndex} columnIndex={letterIndex} />
-          )),
-        )}
+        {grid.map((row) => row.map((letter, letterIndex) => <Box key={letterIndex} content={letter} />))}
       </div>
     </div>
   );

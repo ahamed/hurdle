@@ -8,7 +8,7 @@ import Keyboard from '../components/Keyboard';
 import Navbar from '../components/Navbar';
 import { GameContextProvider, useGameContext } from '../hooks/useGameContext';
 import { ButtonTypes, BoxState } from '../types.d';
-import { numberOfRows } from '../utils';
+import { numberOfColumns, numberOfRows } from '../utils';
 
 const styles = {
   wrapper: css`
@@ -42,6 +42,7 @@ const styles = {
     line-height: 26px;
 
     @media (max-width: 768px) {
+      margin-top: 100px;
     }
 
     h2 {
@@ -103,8 +104,8 @@ const Home: NextPage = () => {
           <h2>Rules</h2>
           <hr />
           <p>
-            Guess a word in {numberOfRows} tries. Each guess must be a valid 5 character word. After each word guess hit{' '}
-            <strong>Enter</strong> key of the keyboard or click the{' '}
+            Guess a word in {numberOfRows} tries. Each guess must be a valid ${numberOfColumns} characters word. After
+            each word guess hit <strong>Enter</strong> key of the keyboard or click the{' '}
             <span style={{ display: 'inline' }}>
               <Button type={ButtonTypes.dark} size={ButtonSize.small}>
                 Enter
@@ -113,7 +114,7 @@ const Home: NextPage = () => {
             button.
           </p>
 
-          <h4>In your guessed word-</h4>
+          <h4>In one guess-</h4>
           <ol css={styles.rules}>
             <li>
               If any character matched with the searching word on the <b>correct position</b> then it shows in green
@@ -126,8 +127,6 @@ const Home: NextPage = () => {
                       letter: char,
                       status: index === 0 ? BoxState.correctPosition : BoxState.default,
                     }}
-                    rowIndex={0}
-                    columnIndex={0}
                   />
                 ))}
               </div>
@@ -144,8 +143,6 @@ const Home: NextPage = () => {
                       letter: char,
                       status: index === 3 ? BoxState.wrongPosition : BoxState.default,
                     }}
-                    rowIndex={0}
-                    columnIndex={0}
                   />
                 ))}
               </div>
@@ -162,8 +159,6 @@ const Home: NextPage = () => {
                       letter: char,
                       status: index === 2 ? BoxState.absent : BoxState.default,
                     }}
-                    rowIndex={0}
-                    columnIndex={0}
                   />
                 ))}
               </div>
