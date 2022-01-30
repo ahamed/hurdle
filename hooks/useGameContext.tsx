@@ -64,8 +64,6 @@ export const GameContextProvider = ({ children }: GameContextProvideProps) => {
   const currentRow = useRef(0);
   const currentColumn = useRef(0);
 
-  console.log(hurdle.current);
-
   useEffect(() => {
     if (currentRow.current > 0 && currentColumn.current === 0) {
       const absents = grid.flatMap((row) => {
