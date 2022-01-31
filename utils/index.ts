@@ -89,7 +89,7 @@ export const generateShareMessage = (grid: GridBox[][]) => {
   }
 
   let message = 'HURDLE\n';
-  message += `Solved in ${steps} of ${numberOfRows} steps.\n\n\n`;
+  message += `Solved in ${steps} of ${numberOfRows} steps.\n\n`;
   message += grid
     .map((row) =>
       row
@@ -98,6 +98,8 @@ export const generateShareMessage = (grid: GridBox[][]) => {
         .join(' '),
     )
     .join('\n');
+
+  message += '#hurdlewordlegame';
 
   return message;
 };
